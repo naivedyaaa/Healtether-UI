@@ -15,6 +15,7 @@ import PatientsRecord from "./components/v1/Patients/AddPatient.jsx";
 import  StaffsOverview from "./components/v1/Staffs/StaffsOverview";
 import  AddStaff  from "./components/v1/Staffs/AddStaff";
 import  StaffDetails  from "./components/v1/Staffs/StaffDetails";
+import  PatientDetails  from "./components/v1/Patients/PatientDetails";
 
 
 const router = createBrowserRouter([
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: "detailstaff",
                 element: <StaffDetails/>
+              },
+            {
+                path: "detailpatient",
+                element: <PatientDetails/>
               },
         ]
     }

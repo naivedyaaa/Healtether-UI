@@ -4,11 +4,10 @@ import imgSrc from "../../../assets/staff-profile.png";
 export default function StaffDetails() {
         return (
         <div className="md:flex flex-wrap font-['arimo'] mt-5 lg:divide-x">
-            <div className="lg:w-1/2 sm:w-full lg:px-5 pb-8">
+            <div className="lg:w-1/2 sm:w-full lg:px-5 pb-8 sm:pb-4">
             <div className="flex flex-row pb-7 border-b border-gray-300">
                 <div>
                     <img className="h-[212px] w-[212px] rounded-[50%] object-cover" src={imgSrc} alt="Set Image" />
-                    {/* <input className="hidden" type="file" ref={imageRef} onChange={profilePhotoUpdate}/> */}
                 </div>
                 <div className="flex flex-col justify-between pl-4 w-[50%]">
                     <p className="bg-gray-300 p-1 w-fit text-xs rounded-md px-2 mb-5 mt-5">Admin</p>
@@ -40,20 +39,20 @@ export default function StaffDetails() {
                             <p  className="ml-3 text-[#484d63 ] text-md lg:w-3/4 xs:w-full text-[#6D6D6D] pt-2">9658 4521 6563 8954</p>
                         </div>
                     </div>
-                    <div className="flex flex-col mt-2 lg:mb-8 xs:mb-4">
+                    <div className="flex flex-col mt-2 mb-8">
                         <div className="pt-2 flex flex-row">
                             <p className="font-semibold text-base text-[#006270]">Other Documents :</p>
                         </div>
                         <div className="w-3/4 justify-start flex flex-col">
                             <div className="flex justify-between pt-2 items-center border-b-2">
-                                <p className="text-[#6D6D6D]">"1. Aadhar card.png</p>
+                                <p className="text-[#6D6D6D]">1. Aadhar card.png</p>
                                 <i className="icon-[mdi--file-find] text-md "></i>
                             </div>
                         </div>
                     </div>
                     <hr className="h-px block bg-gray-300 px-4"></hr>
 
-                    <div className="text-base font-semibold tracking-wider md:mt-4"> BANK DETAILS
+                    <div className="text-base font-semibold tracking-wider mt-4"> BANK DETAILS
                       <div className="w-20 h-1 bg-[#009394]"></div>
                     </div>
 
@@ -103,7 +102,9 @@ export default function StaffDetails() {
                         </div>
                     </div>
             </div>
+
             <div className="lg:w-1/2 sm:w-full lg:px-5 text-[#009394] ">
+            <hr className="h-px bg-gray-300 px-4 block lg:hidden mb-4"></hr>
                     <div className="text-base font-semibold tracking-wider text-black">PERSONAL DETAILS
                       <div className="lg:w-20 xs:w-12 h-1 bg-[#009394]"></div>
                     </div>
@@ -204,7 +205,7 @@ export default function StaffDetails() {
 
                     <hr className="h-px block bg-gray-300 px-4"></hr>
 
-                    <div className="text-base font-semibold tracking-wider md:mt-4 flex flex-col text-black">PAYMENT HISTORY
+                    <div className="text-base font-semibold tracking-wider mt-4 flex flex-col text-black">PAYMENT HISTORY
                         <div className="lg:w-20 xs:w-12 h-1 bg-[#009394] mb-2 "></div>
                         <table className="leading-[30px]">
                             <thead className="text-left text-[#6D6D6D] text-sm leading-9">
@@ -224,7 +225,7 @@ export default function StaffDetails() {
                                     <td>Sat.</td>
                                     <td>UPI</td>
                                     <td>₹ 1000</td>
-                                    <td>High_fev...<i className="icon-[mdi--file-find] text-md "></i></td>
+                                    <td>High_fev...<i className="icon-[mdi--file-find] text-md text-black "></i></td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
@@ -232,7 +233,7 @@ export default function StaffDetails() {
                                     <td>Mon.</td>
                                     <td>Bank</td>
                                     <td>₹ 200</td>
-                                    <td>Saline C...<i className="icon-[mdi--file-find] text-md "></i></td>
+                                    <td>Saline C...<i className="icon-[mdi--file-find] text-md text-black "></i></td>
                                 </tr>
                             </tbody>
                         </table>
