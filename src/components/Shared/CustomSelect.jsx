@@ -26,7 +26,8 @@ const CustomSelect = (props) => {
                 data-te-select-init
                 data-te-select-size="lg"
                 data-te-select-container={props.containerid}
-                data-te-class-select-input-size-lg={inputSizeLg}>
+                data-te-class-select-input-size-lg={inputSizeLg}
+                onChange={(e)=>{props.setValue(e.target[e.target.selectedIndex].text)}}>
                 {options}
             </select>
             <label data-te-select-label-ref>{props.placeholdertext}</label>

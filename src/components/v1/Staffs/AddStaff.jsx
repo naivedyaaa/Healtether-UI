@@ -38,7 +38,7 @@ const WrongValuesPopup=({componentShow,setComponentShow})=>{
 
 export default function AddStaff() {
     const [imgSrc,setImgSrc]=useState(img);
-
+    
     // binding of all fields 
     const [nameValue,setNameValue]=useState();
     const [specializationValue,setSpecializationValue]=useState();
@@ -82,6 +82,9 @@ export default function AddStaff() {
         setDocUploadName(docnames)
     }
     function submitCheck(e){
+        console.log(nameValue)
+        console.log(specializationValue)
+        console.log(roleValue)
         console.log(birthdayValue)
         console.log(ageValue)
         console.log(genderValue)
@@ -100,8 +103,8 @@ export default function AddStaff() {
 
         if(!birthdayValue || !ageValue || !genderValue || !mobileValue || !whatsappValue || !addressValue){
             setWrongValuePopupShow(true)
+            e.preventDefault()
         }
-        e.preventDefault()
     }
         return (
             <>
