@@ -2,8 +2,54 @@ import React from "react";
 import { useState , useRef} from "react";
 import img from "../../../assets/profilePhoto.png";
 
+const WrongValuesPopup=({componentShow,setComponentShow})=>{
+    console.log("props = "+componentShow)
+    return(
+        componentShow?
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
+                    Please fill the red boxes correctly
+                  </p>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end py-2 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setComponentShow(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>:null
+    )
+}
+
+
+
 export default function AddStaff() {
     const [imgSrc,setImgSrc]=useState(img);
+
+    // values of mandatory fields 
+    const [birthdayValue,setBirthdayValue]=useState();
+    const [ageValue,setAgeValue]=useState();
+    const [genderValue,setGenderValue]=useState("Male");
+    const [mobileValue,setMobileValue]=useState();
+    const [whatsappValue,setWhatsappValue]=useState();
+    const [addressValue,setAddressValue]=useState();
+    const [wrongValuePopupShow,setWrongValuePopupShow]=useState(false);
+    const ageRef=useRef("");
+    
     const [docUploadName,setDocUploadName]=useState([]);
     const imageRef=useRef("");
     const docUploadRef=useRef("");
@@ -23,33 +69,169 @@ export default function AddStaff() {
         }
         setDocUploadName(docnames)
     }
+    function submitCheck(e){
+        console.log(birthdayValue)
+        console.log(ageValue)
+        console.log(genderValue)
+        console.log(mobileValue)
+        console.log(whatsappValue)
+        console.log(addressValue)
+        if(!birthdayValue || !ageValue || !genderValue || !mobileValue || !whatsappValue || !addressValue){
+            console.log("entered")
+            setWrongValuePopupShow(true)
+            e.preventDefault()
+        }
+    }
         return (
-        <div className="md:flex flex-wrap font-['arimo'] mt-5 lg:divide-x">
-            <div className="lg:w-1/2 sm:w-full lg:px-5 pb-8">
-            <div className="flex flex-row pb-7 border-b border-gray-300">
+            <>
+            <WrongValuesPopup componentShow={wrongValuePopupShow} setComponentShow={setWrongValuePopupShow} />
+            <form className="md:flex flex-wrap font-['arimo'] mt-5 lg:divide-x">
+            <div className="lg:w-1/2 sm:w-full lg:px-5">
+            <div className="flex flex-row">
                 <div>
                     <img className="h-[212px] w-[212px] rounded-[50%] object-cover" src={imgSrc} alt="Set Image" onClick={profilePhotoClicked} />
                     <input className="hidden" type="file" ref={imageRef} onChange={profilePhotoUpdate}/>
                 </div>
                 <div className="flex flex-col justify-between pl-8 w-[50%]">
                     <p className="bg-gray-300 p-1 w-fit text-xs rounded-md px-2 mb-2">Admin</p>
-                    <input className="rounded-md h-16 text-3xl" type="text" placeholder="Name" />
-                    <input className="rounded-md h-8" type="text" placeholder="Specialization" />
-                    <input className="rounded-md h-8" type="text" placeholder="Role"/>
-                    <button className="text-xs w-fit bg-teal-500 text-white rounded-md py-1 px-2 mt-2">Save</button>
+                    <input className="rounded-md h-16 text-3xl" type="text" name="name" placeholder="Name" />
+                    <input className="rounded-md h-8" type="text" name="specialization" placeholder="Specialization" />
+                    <input className="rounded-md h-8" type="text" name="role" placeholder="Role"/>
+                    <button onClick={submitCheck} className="text-xs w-fit bg-teal-500 text-white rounded-md py-1 px-2 mt-2" type="submit">Save</button>
                 </div>
             </div>
-            <div className="text-base font-semibold tracking-wider mt-4"> DOCUMENTS
+
+            <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8"></hr>
+
+            <div className="text-base font-semibold tracking-wider">PERSONAL DETAILS
+                      <div className="lg:w-20 xs:w-12 h-1 bg-[#009394]"></div>
+                    </div>
+
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="birthday" className="font-semibold text-base  text-[#009394]">Birthday <span className="text-red-600"> *</span></label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="birthday" name="birthday" type="date" onChange={(e)=>{setBirthdayValue(e.target.value);ageRef.current.value=new Date().getFullYear()-new Date(birthdayValue).getFullYear(); ageRef.current.setAttribute("disabled",'')}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
+                        </div>
+                    </div>
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="age" className="font-semibold text-base  text-[#009394]">Age <span className="text-red-600"> *</span></label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="age" name="age" ref={ageRef} type="number" onChange={(e)=>{setAgeValue(e.target.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="gender" className="font-semibold text-base  text-[#009394]">Gender <span className="text-red-600"> *</span></label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <select id="gender" name="gender" onChange={(e)=>{setGenderValue(e.target.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="weight" className="font-semibold text-base  text-[#009394]">Weight</label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="weight" type="number" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="height" className="font-semibold text-base  text-[#009394]">Height</label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="height" type="number" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
+                        </div>
+                    </div> */}
+
+                    <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8"></hr>
+
+                    <div className="text-base font-semibold tracking-wider"> BANK DETAILS
+                      <div className="w-20 h-1 bg-[#009394]"></div>
+                    </div>
+
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="upiId" className="font-semibold text-base text-[#009394]">UPI ID</label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="upiId" name="upiId" type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                        </div>
+                    </div>
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="bankName" className="font-semibold text-base  text-[#009394]">Bank</label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <select id="bankName" name="bankName" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
+                                <option></option>
+                                <option>Select Id</option>
+                                <option>Select Id</option>
+                                <option>Select Id</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="account" className="font-semibold text-base  text-[#009394]">Acc No.</label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="account" name="account" type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                        </div>
+                    </div>
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="ifsc" className="font-semibold text-base  text-[#009394]">IFSC code</label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="ifsc" name="ifsc" type="text" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                        </div>
+                    </div>
+                    <div className="flex flex-row mt-2">
+                        <div className="w-1/4 pt-2">
+                            <label htmlFor="accountName" className="font-semibold text-base  text-[#009394]">Account Holder</label>
+                        </div>
+                        <div className="w-3/4 justify-start flex">
+                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
+                            <input id="accountName" name="accountName" type="text" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                        </div>
+                    </div>
+                    <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8"></hr>
+
+            </div>
+
+            <div className="lg:w-1/2 sm:w-full lg:px-5  ">
+            <div className="text-base font-semibold tracking-wider"> DOCUMENTS
             <div className="lg:w-20 xs:w-12 h-1 bg-[#009394] "></div>
                     </div>
 
                     <div className="flex flex-row mt-2 lg:mb-2 xs:mb-2">
                         <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">ID type</label>
+                            <label htmlFor="documentType" className="font-semibold text-base  text-[#009394]">ID type</label>
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <select className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
+                            <select id="documentType" name="documentType" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
                                 <option>Select Id</option>
                                 <option>Select Id</option>
                                 <option>Select Id</option>
@@ -58,20 +240,20 @@ export default function AddStaff() {
                     </div>
                     <div className="flex flex-row mt-2 lg:mb-2 xs:mb-2">
                         <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">ID no.</label>
+                            <label htmlFor="documentNumber" className="font-semibold text-base  text-[#009394]">ID no.</label>
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                            <input id="documentNumber" name="documentNumber" type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
                         </div>
                     </div>
-                    <div className="flex flex-col mt-2 lg:mb-8 xs:mb-4">
+                    <div className="flex flex-col mt-2">
                         <div className="pt-2 flex flex-row">
-                            <label className="font-semibold text-base  text-[#009394]">Other Documents :</label>
+                            <label htmlFor="otherDoc" className="font-semibold text-base  text-[#009394]">Other Documents :</label>
                         </div>
                         <div className="w-3/4 justify-start flex flex-col">
                             <button className="bg-gray-800 text-white mt-2 flex justify-between items-center p-2 rounded-md"onClick={uploadDocumentClicked}>Browse to upload documents <i className="icon-[bytesize--upload] text-2xl "></i> </button>
-                            <input className="hidden" type="file" multiple ref={docUploadRef} onChange={docUploadUpdate}/>
+                            <input id="otherDoc" className="hidden" type="file" multiple ref={docUploadRef} onChange={docUploadUpdate}/>
                             {docUploadName==false?<p className="text-gray-500 pt-2">No entries found.</p>:docUploadName.map((e,index)=>{
                                 console.log(docUploadName)
                                 return(
@@ -83,176 +265,65 @@ export default function AddStaff() {
                             })}
                         </div>
                     </div>
-                    <hr className="h-px block bg-gray-300 px-4"></hr>
+                    
 
-                    <div className="text-base font-semibold tracking-wider md:mt-4"> BANK DETAILS
-                      <div className="w-20 h-1 bg-[#009394]"></div>
-                    </div>
-
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">UPI ID</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
-                        </div>
-                    </div>
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Bank</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <select className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
-                                <option></option>
-                                <option>Select Id</option>
-                                <option>Select Id</option>
-                                <option>Select Id</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Acc No.</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
-                        </div>
-                    </div>
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">IFSC code</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="text" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
-                        </div>
-                    </div>
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Account Holder</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="text" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
-                        </div>
-                    </div>
-            </div>
-            <div className="lg:w-1/2 sm:w-full lg:px-5  ">
-                    <div className="text-base font-semibold tracking-wider">PERSONAL DETAILS
-                      <div className="lg:w-20 xs:w-12 h-1 bg-[#009394]"></div>
-                    </div>
-
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Birthday</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="date" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
-                        </div>
-                    </div>
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Age</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="number" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Gender</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <select className="rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full">
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Others</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-row mt-2">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Weight</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="number" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-row mt-2 lg:mb-6 xs:mb-4">
-                        <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Height</label>
-                        </div>
-                        <div className="w-3/4 justify-start flex">
-                            <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="number" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
-                        </div>
-                    </div>
-
-                    <hr className="h-px block bg-gray-300 px-4 "></hr>
+                    <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8"></hr>
 
 
-                    <div className="text-base font-semibold tracking-wider lg:mt-4 xs:mt-2">CONTACT DETAILS
+                    <div className="text-base font-semibold tracking-wider">CONTACT DETAILS
                       <div className="lg:w-20 xs:w-12 h-1 bg-[#009394] "></div>
                     </div>
 
                     <div className="flex flex-row mt-2">
                         <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Mobile</label>
+                            <label htmlFor="mobile" className="font-semibold text-base  text-[#009394]">Mobile <span className="text-red-600"> *</span></label>
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="tel" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full" />
+                            <input id="mobile" name="moblie" type="tel" pattern="[0-9]{10}" onChange={(e)=>{setMobileValue(e.target.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full" />
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
                         <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Whatsapp</label>
+                            <label htmlFor="whatsapp" className="font-semibold text-base  text-[#009394]">Whatsapp <span className="text-red-600"> *</span></label>
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="tel" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full"/>
+                            <input id="whatsapp" name="whatsapp" type="tel" pattern="[0-9]{10}" onChange={(e)=>{setWhatsappValue(e.target.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full"/>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
                         <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Email</label>
+                            <label htmlFor="email" className="font-semibold text-base  text-[#009394]">Email</label>
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input type="email" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full" placeholder="xyz@gmail.com"/>
+                            <input id="email" name="email" type="email" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full" placeholder="xyz@gmail.com"/>
                         </div>
                     </div>
-                    <div className="flex flex-row mt-2 lg:mb-6 xs:mb-4">
+                    <div className="flex flex-row mt-2">
                         <div className="w-1/4 pt-2">
-                            <label className="font-semibold text-base  text-[#009394]">Address</label>
+                            <label htmlFor="address" className="font-semibold text-base  text-[#009394]">Address <span className="text-red-600"> *</span></label>
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <textarea className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full" rows="5"></textarea>
+                            <textarea id="address" name="address" onChange={(e)=>{setAddressValue(e.target.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full" rows="5"></textarea>
                         </div>
                     </div>
 
-                    <hr className="h-px block bg-gray-300 px-4"></hr>
+                    <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8"></hr>
 
-                    <div className="text-base font-semibold tracking-wider md:mt-4 flex flex-col">PAYMENT HISTORY
+                    <div className="text-base font-semibold tracking-wider flex flex-col">PAYMENT HISTORY
                         <div className="lg:w-20 xs:w-12 h-1 bg-[#009394] "></div>
-                        <p className="text-neutral-500 dark:text-neutral-400 text-sm pt-5 pb-6 border-gray-300 border-b">No entities found</p>
-
+                        <p className="text-neutral-500 dark:text-neutral-400 text-sm pt-5">No entities found</p>
                     </div>
+                    <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8"></hr>
 
 
             </div>
-        </div>
+        </form>
+        </>
 
     )
 };
+
