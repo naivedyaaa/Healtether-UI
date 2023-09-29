@@ -3,7 +3,6 @@ import { useState , useRef} from "react";
 import img from "../../../assets/profilePhoto.png";
 
 const WrongValuesPopup=({componentShow,setComponentShow})=>{
-    console.log("props = "+componentShow)
     return(
         componentShow?
         <>
@@ -40,12 +39,21 @@ const WrongValuesPopup=({componentShow,setComponentShow})=>{
 export default function AddStaff() {
     const [imgSrc,setImgSrc]=useState(img);
 
-    // values of mandatory fields 
+    // binding of all fields 
     const [birthdayValue,setBirthdayValue]=useState();
     const [ageValue,setAgeValue]=useState();
     const [genderValue,setGenderValue]=useState("Male");
+    const [upiIdValue,setUpiIdValue]=useState();
+    const [bankNameValue,setBankNameValue]=useState();
+    const [accountValue,setAccountValue]=useState();
+    const [ifscValue,setIfscValue]=useState();
+    const [accountNameValue,setAccountNameValue]=useState();
+    const [documentTypeValue,setDocumentTypeValue]=useState();
+    const [documentNumberValue,setDocumentNumberValue]=useState();
+    const [otherDocumentValue,setOtherDocumentValue]=useState();
     const [mobileValue,setMobileValue]=useState();
     const [whatsappValue,setWhatsappValue]=useState();
+    const [emailValue,setEmailValue]=useState();
     const [addressValue,setAddressValue]=useState();
     const [wrongValuePopupShow,setWrongValuePopupShow]=useState(false);
     const ageRef=useRef("");
@@ -63,6 +71,7 @@ export default function AddStaff() {
         docUploadRef.current.click()
     }
     function docUploadUpdate(e){
+        setOtherDocumentValue(e.target.files)
         let docnames=[]
         for(var i=0;i<e.target.files.length;i++){
             docnames[i]=e.target.files[i]
@@ -73,14 +82,23 @@ export default function AddStaff() {
         console.log(birthdayValue)
         console.log(ageValue)
         console.log(genderValue)
+        console.log(upiIdValue)
+        console.log(bankNameValue)
+        console.log(accountValue)
+        console.log(ifscValue)
+        console.log(accountNameValue)
+        console.log(documentTypeValue)
+        console.log(documentNumberValue)
+        console.log(otherDocumentValue)
         console.log(mobileValue)
         console.log(whatsappValue)
+        console.log(emailValue)
         console.log(addressValue)
+
         if(!birthdayValue || !ageValue || !genderValue || !mobileValue || !whatsappValue || !addressValue){
-            console.log("entered")
             setWrongValuePopupShow(true)
-            e.preventDefault()
         }
+        e.preventDefault()
     }
         return (
             <>
@@ -94,9 +112,9 @@ export default function AddStaff() {
                 </div>
                 <div className="flex flex-col justify-between pl-8 w-[50%]">
                     <p className="bg-gray-300 p-1 w-fit text-xs rounded-md px-2 mb-2">Admin</p>
-                    <input className="rounded-md h-16 text-3xl" type="text" name="name" placeholder="Name" />
-                    <input className="rounded-md h-8" type="text" name="specialization" placeholder="Specialization" />
-                    <input className="rounded-md h-8" type="text" name="role" placeholder="Role"/>
+                    <input className="rounded-md h-16 text-3xl" name="name" type="text" placeholder="Name" />
+                    <input className="rounded-md h-8" name="specialization" type="text" placeholder="Specialization" />
+                    <input className="rounded-md h-8" name="role" type="text" placeholder="Role"/>
                     <button onClick={submitCheck} className="text-xs w-fit bg-teal-500 text-white rounded-md py-1 px-2 mt-2" type="submit">Save</button>
                 </div>
             </div>
@@ -113,7 +131,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="birthday" name="birthday" type="date" onChange={(e)=>{setBirthdayValue(e.target.value);ageRef.current.value=new Date().getFullYear()-new Date(birthdayValue).getFullYear(); ageRef.current.setAttribute("disabled",'')}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
+                            <input id="birthday" name="birthday" type="date" onChange={(e)=>{setBirthdayValue(e.target.value);ageRef.current.value=new Date().getFullYear()-new Date(birthdayValue).getFullYear(); ageRef.current.setAttribute("disabled",'');setAgeValue(ageRef.current.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -122,7 +140,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="age" name="age" ref={ageRef} type="number" onChange={(e)=>{setAgeValue(e.target.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
+                            <input id="age" name="age" ref={ageRef} type="number" onChange={(e)=>{console.log("Age changed");setAgeValue(e.target.value)}} required className="invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 rounded ml-3 text-[#484d63 ] text-sm lg:w-2/4 xs:w-full"/>
                         </div>
                     </div>
 
@@ -172,7 +190,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="upiId" name="upiId" type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                            <input id="upiId" name="upiId" type="number" onChange={(e)=>{setUpiIdValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -181,7 +199,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <select id="bankName" name="bankName" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
+                            <select id="bankName" name="bankName" onChange={(e)=>{setBankNameValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
                                 <option></option>
                                 <option>Select Id</option>
                                 <option>Select Id</option>
@@ -195,7 +213,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="account" name="account" type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                            <input id="account" name="account" type="number"  onChange={(e)=>{setAccountValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -204,7 +222,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="ifsc" name="ifsc" type="text" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                            <input id="ifsc" name="ifsc" type="text" onChange={(e)=>{setIfscValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -213,7 +231,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="accountName" name="accountName" type="text" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                            <input id="accountName" name="accountName" type="text" onChange={(e)=>{setAccountNameValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
                         </div>
                     </div>
                     <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8"></hr>
@@ -231,7 +249,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <select id="documentType" name="documentType" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
+                            <select id="documentType" name="documentType" onChange={(e)=>{setDocumentTypeValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full">
                                 <option>Select Id</option>
                                 <option>Select Id</option>
                                 <option>Select Id</option>
@@ -244,18 +262,17 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="documentNumber" name="documentNumber" type="number" className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
+                            <input id="documentNumber" name="documentNumber" type="number"  onChange={(e)=>{setDocumentNumberValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm form-textarea lg:w-3/4 xs:w-full"/>
                         </div>
                     </div>
                     <div className="flex flex-col mt-2">
                         <div className="pt-2 flex flex-row">
-                            <label htmlFor="otherDoc" className="font-semibold text-base  text-[#009394]">Other Documents :</label>
+                            <label htmlFor="otherDocument" className="font-semibold text-base  text-[#009394]">Other Documents :</label>
                         </div>
                         <div className="w-3/4 justify-start flex flex-col">
                             <button className="bg-gray-800 text-white mt-2 flex justify-between items-center p-2 rounded-md"onClick={uploadDocumentClicked}>Browse to upload documents <i className="icon-[bytesize--upload] text-2xl "></i> </button>
-                            <input id="otherDoc" className="hidden" type="file" multiple ref={docUploadRef} onChange={docUploadUpdate}/>
+                            <input id="otherDocument" type="file" onChange={docUploadUpdate} className="hidden" multiple ref={docUploadRef} />
                             {docUploadName==false?<p className="text-gray-500 pt-2">No entries found.</p>:docUploadName.map((e,index)=>{
-                                console.log(docUploadName)
                                 return(
                                     <div className="flex justify-between pt-2 items-center border-b-2">
                                         <p className="text-gray-500">{(index+1)+". "+e.name}</p>
@@ -298,7 +315,7 @@ export default function AddStaff() {
                         </div>
                         <div className="w-3/4 justify-start flex">
                             <div className="font-semibold text-base  text-[#009394] pt-2">:</div>
-                            <input id="email" name="email" type="email" className="rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full" placeholder="xyz@gmail.com"/>
+                            <input id="email" name="email" type="email" onChange={(e)=>{setEmailValue(e.target.value)}} className="rounded ml-3 text-[#484d63 ] text-sm lg:w-3/4 xs:w-full" placeholder="xyz@gmail.com"/>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
