@@ -40,6 +40,9 @@ export default function AddStaff() {
     const [imgSrc,setImgSrc]=useState(img);
 
     // binding of all fields 
+    const [nameValue,setNameValue]=useState();
+    const [specializationValue,setSpecializationValue]=useState();
+    const [roleValue,setRoleValue]=useState();
     const [birthdayValue,setBirthdayValue]=useState();
     const [ageValue,setAgeValue]=useState();
     const [genderValue,setGenderValue]=useState("Male");
@@ -112,9 +115,9 @@ export default function AddStaff() {
                 </div>
                 <div className="flex flex-col justify-between pl-8 w-[50%]">
                     <p className="bg-gray-300 p-1 w-fit text-xs rounded-md px-2 mb-2">Admin</p>
-                    <input className="rounded-md h-16 text-3xl" name="name" type="text" placeholder="Name" />
-                    <input className="rounded-md h-8" name="specialization" type="text" placeholder="Specialization" />
-                    <input className="rounded-md h-8" name="role" type="text" placeholder="Role"/>
+                    <input className="rounded-md h-16 text-3xl" name="name" type="text" onChange={(e)=>{setNameValue(e.target.value)}} placeholder="Name" />
+                    <input className="rounded-md h-8" name="specialization" type="text" onChange={(e)=>{setSpecializationValue(e.target.value)}} placeholder="Specialization" />
+                    <input className="rounded-md h-8" name="role" type="text" onChange={(e)=>{setRoleValue(e.target.value)}} placeholder="Role"/>
                     <button onClick={submitCheck} className="text-xs w-fit bg-teal-500 text-white rounded-md py-1 px-2 mt-2" type="submit">Save</button>
                 </div>
             </div>
