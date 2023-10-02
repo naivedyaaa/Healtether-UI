@@ -14,6 +14,7 @@ import { Dashboard } from "./components/v1/Dashboard/Dashboard.jsx";
 import PatientsRecord from "./components/v1/Patients/AddPatient.jsx";
 import  StaffsOverview from "./components/v1/Staffs/StaffsOverview";
 import  AddStaff  from "./components/v1/Staffs/AddStaff";
+import  AddPatient  from "./components/v1/Patients/AddPatient";
 import  StaffDetails  from "./components/v1/Staffs/StaffDetails";
 import  PatientDetails  from "./components/v1/Patients/PatientDetails";
 import AppointmentSuccess from "./components/v1/Appointments/AppointmentSuccess";
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: "addstaff",
                 element: <AddStaff/>
+              },
+            {
+                path: "addpatient",
+                element: <AddPatient/>
               },
             {
                 path: "detailstaff",

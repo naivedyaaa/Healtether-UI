@@ -4,26 +4,46 @@ import imgSrc from "../../../assets/patient-profile.png";
 
 export default function PatientDetails() {
 
-    const [nameValue,setNameValue]=useState("Ramesh Patel");
-    const [mobileValue,setMobileValue]=useState("+91 986 563214");
-    const [birthdayValue,setBirthdayValue]=useState("4/12/1993");
-    const [ageValue,setAgeValue]=useState("30");
-    const [genderValue,setGenderValue]=useState("Male");
-    const [heightValue,setHeightValue]=useState("NA");
-    const [weightValue,setWeightValue]=useState("NA");
-    const [whatsappValue,setWhatsappValue]=useState('+91 896 452167');
-    const [emailValue,setEmailValue]=useState("rameshpatel@gmail.com");
-    const [addressValue,setAddressValue]=useState("Plot No. 4-75/1, Madhavi Nagar, Opposite BHEL R(&)D Gate, BalaNagar Hyderabad, Telangana, 500037.");
-    const [medicalRecords,setMedicalRecords]=useState(["1. X-ray report_28may23.pdf","2. Blood test report_28may23.pdf"]);
-    const [documentTypeValue,setDocumentTypeValue]=useState("Aadhar");
-    const [documentNumberValue,setDocumentNumberValue]=useState("9658 4521 6563 8954");
-    const [otherDocuments,setOtherDocuments]=useState(["1. Aadhar card.png"]);
-    const [upiIdValue,setUpiIdValue]=useState("ram214@ybl");
-    const [bankNameValue,setBankNameValue]=useState("Indian Bank");
-    const [accountValue,setAccountValue]=useState("5213 5123 6554 5894");
-    const [ifscValue,setIfscValue]=useState("IDBI000H013");
-    const [accountNameValue,setAccountNameValue]=useState("Ram Menon");
-    const [proceduralRecords,setProceduralRecords]=useState(["1. Consultation_01july23.pdf","2. Minor surgery_28may23.pdf"]);
+    const [basicDetails, setBasicDetails] = useState({
+        name: "Ramesh Patel",
+        mobile: "+91 986 563214",
+      });
+    
+      const [personalDetails, setPersonalDetails] = useState({
+        birthday: "4/12/1993",
+        age: "30",
+        gender: "Male",
+        height: "NA",
+        weight: "NA",
+      });
+    
+      const [contactDetails, setContactDetails] = useState({
+        mobile:"+91 986 563214",
+        whatsapp: "+91 896 452167",
+        email: "rameshpatel@gmail.com",
+        address: "Plot No. 4-75/1, Madhavi Nagar, Opposite BHEL R(&)D Gate, BalaNagar Hyderabad, Telangana, 500037.",
+      });
+    
+      const [medicalRecords, setMedicalRecords] = useState(["X-ray report_28may23.pdf","Blood test report_28may23.pdf"]);
+      const [paymentHistory, setPaymentHistory] = useState([]);
+    
+      const [documentDetails, setDocumentDetails] = useState({
+        idType: "Aadhar",
+        idNumber: "9658 4521 6563 8954",
+        otherDocuments: ["Aadhar card.png"],
+      });
+    
+      const [bankDetails, setBankDetails] = useState({
+        upiId: "ram214@ybl",
+        bankName: "Indian Bank",
+        accountNumber: "5213 5123 6554 5894",
+        ifscCode: "IDBI000H013",
+        accountHolder: "Ram Menon",
+      });
+    
+      const [procedureRecords, setProcedureRecords] = useState(["Consultation_01july23.pdf","Minor surgery_28may23.pdf"]);
+      const [appointmentsHistory, setAppointmentsHistory] = useState([]);
+
     
     
         return (
@@ -33,14 +53,12 @@ export default function PatientDetails() {
                 <div>
                     <img className="h-[72px] w-[72px] rounded-[50%] object-cover" src={imgSrc} alt="Set Image" />
                 </div>
-                <div className="flex flex-col justify-between pl-4 w-[50%]">
-                    {/* <p className="bg-gray-300 p-1 w-fit text-xs rounded-md px-2 mb-5 mt-5">Admin</p> */}
-                    <p className="text-3xl mb-4">{nameValue}</p>
-                    <p className="rounded-md h-8">{mobileValue}</p>
-                    {/* <p className="rounded-md h-8 text-[#740AC7] text-sm">ENT specialist</p> */}
+                <div className="flex flex-col justify-between pl-4">
+                    <p className="text-3xl mb-4">{basicDetails.name}</p>
+                    <p className="rounded-md h-8">{basicDetails.mobile}</p>
                     <div className="flex">
-                        <button className="text-xs w-fit shadow-md rounded-md py-1 px-2 mt-2">Edit Profile</button>
-                        <button className="text-xs w-fit bg-teal-500 text-white rounded-md py-1 px-2 mt-2">Start Conversation</button>
+                        <button className="text-xs w-fit shadow-md rounded-md py-1 px-2 mt-2 mr-2">Edit Profile</button>
+                        <button className="text-xs w-fit bg-teal-500 text-white rounded-md py-1 px-2 mt-2">Start Consultation</button>
                     </div>
                 </div>
             </div>
@@ -55,7 +73,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{birthdayValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{personalDetails.birthday}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -64,7 +82,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{ageValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{personalDetails.age}</p>
 
                         </div>
                     </div>
@@ -75,7 +93,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{genderValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{personalDetails.gender}</p>
                         </div>
                     </div>
 
@@ -85,7 +103,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{weightValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{personalDetails.weight}</p>
                         </div>
                     </div>
 
@@ -95,7 +113,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{heightValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{personalDetails.height}</p>
                         </div>
                     </div>
                     
@@ -112,7 +130,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{mobileValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{contactDetails.mobile}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -121,7 +139,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{whatsappValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{contactDetails.whatsapp}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -130,7 +148,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{emailValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{contactDetails.email}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2 ">
@@ -139,7 +157,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-start">
                             <div className="font-semibold text-base text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{addressValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-2/4 xs:w-full pt-2">{contactDetails.address}</p>
                         </div>
                     </div>
 
@@ -148,10 +166,10 @@ export default function PatientDetails() {
                     <div className="text-base font-semibold tracking-wider flex flex-col text-black">MEDICAL RECORDS
                         <div className="lg:w-20 xs:w-12 h-1 bg-[#009394] mb-2"></div>
                         <div className="w-3/4 justify-start flex flex-col">
-                            {medicalRecords.map((e)=>{
+                            {medicalRecords.map((e,index)=>{
                                 return(
                                     <div className="flex justify-between pt-2 items-center border-b-2">
-                                        <p className="text-[#6D6D6D]">{e}</p>
+                                        <p className="text-[#6D6D6D]">{index+1+". "+e}</p>
                                         <i className="icon-[mdi--file-find] text-md "></i>
                                     </div>
                                 )
@@ -209,7 +227,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center ">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#484d63 ] text-md lg:w-3/4 xs:w-full text-[#6D6D6D] pt-2">{documentTypeValue}</p>
+                            <p className="ml-3 text-[#484d63 ] text-md lg:w-3/4 xs:w-full text-[#6D6D6D] pt-2">{documentDetails.idType}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2 lg:mb-2 xs:mb-2">
@@ -218,7 +236,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p  className="ml-3 text-[#484d63 ] text-md lg:w-3/4 xs:w-full text-[#6D6D6D] pt-2">{documentNumberValue}</p>
+                            <p  className="ml-3 text-[#484d63 ] text-md lg:w-3/4 xs:w-full text-[#6D6D6D] pt-2">{documentDetails.idNumber}</p>
                         </div>
                     </div>
                     <div className="flex flex-col mt-2 ">
@@ -226,10 +244,10 @@ export default function PatientDetails() {
                             <p className="font-semibold text-base text-[#006270]">Other Documents :</p>
                         </div>
                         <div className="w-3/4 justify-start flex flex-col">
-                            {otherDocuments.map((e)=>{
+                            {documentDetails.otherDocuments.map((e,index)=>{
                                 return(
                                     <div className="flex justify-between pt-2 items-center border-b-2">
-                                        <p className="text-[#6D6D6D]">{e}</p>
+                                        <p className="text-[#6D6D6D]">{index+1+". "+e}</p>
                                         <i className="icon-[mdi--file-find] text-md "></i>
                                     </div>
                                 )
@@ -248,7 +266,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{upiIdValue}</p>
+                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{bankDetails.upiId}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -257,7 +275,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{bankNameValue}</p>
+                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{bankDetails.bankName}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -266,7 +284,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p  className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{accountValue}</p>
+                            <p  className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{bankDetails.accountNumber}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -275,7 +293,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{ifscValue}</p>
+                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{bankDetails.ifscCode}</p>
                         </div>
                     </div>
                     <div className="flex flex-row mt-2">
@@ -284,7 +302,7 @@ export default function PatientDetails() {
                         </div>
                         <div className="w-3/4 justify-start flex items-center">
                             <div className="font-semibold text-base  text-[#006270] pt-2">:</div>
-                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{accountNameValue}</p>
+                            <p className="ml-3 text-[#6D6D6D] text-md lg:w-3/4 xs:w-full pt-2">{bankDetails.accountHolder}</p>
                         </div>
                     </div>
                     <hr className="h-px block bg-gray-300 px-4 mt-8 mb-8 "></hr>
@@ -292,10 +310,10 @@ export default function PatientDetails() {
                     <div className="text-base font-semibold tracking-wider flex flex-col text-black">PROCEDURE RECORDS
                         <div className="lg:w-20 xs:w-12 h-1 bg-[#009394] mb-2"></div>
                         <div className="w-3/4 justify-start flex flex-col">
-                            {proceduralRecords.map((e)=>{
+                            {procedureRecords.map((e,index)=>{
                                 return(
                                     <div className="flex justify-between pt-2 items-center border-b-2">
-                                        <p className="text-[#6D6D6D]">{e}</p>
+                                        <p className="text-[#6D6D6D]">{index+1+". "+e}</p>
                                         <i className="icon-[mdi--file-find] text-md "></i>
                                     </div>
                                 )
