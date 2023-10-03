@@ -18,6 +18,7 @@ import  AddPatient  from "./components/v1/Patients/AddPatient";
 import  StaffDetails  from "./components/v1/Staffs/StaffDetails";
 import  PatientDetails  from "./components/v1/Patients/PatientDetails";
 import AppointmentSuccess from "./components/v1/Appointments/AppointmentSuccess";
+import Analytics from "./components/v1/Analytics/Analytics"
 
 
 const router = createBrowserRouter([
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             {
                 path: "successfullappointment",
                 element: <AppointmentSuccess/>
+              },
+            {
+                path: "analytics",
+                element: <Analytics/>
               },
         ]
     }

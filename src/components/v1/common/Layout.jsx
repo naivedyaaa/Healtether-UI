@@ -52,7 +52,7 @@ export default function Layout() {
             icon: "icon-[ion--trending-up-outline] text-[26px] bg-[#046472]",
             cssclass: "block text-black-500 py-2.5 px-5 my-4 rounded transition duration-200  hover:bg-" +
                     "purple-100 font-normal",
-            route: "chats"
+            route: "analytics"
         },
         {
             title: "Logout",
