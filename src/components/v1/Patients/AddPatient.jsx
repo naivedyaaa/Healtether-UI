@@ -422,7 +422,7 @@ const AddPatient = () => {
                     <input id="otherDocument" type="file" onChange={(e)=>recordsUpload(e,setProcedureRecords)} className="hidden" multiple ref={procedureRecordsRef} />
                     {procedureRecords==false?<p className="text-gray-500 pt-2">No entries found.</p>:procedureRecords.map((e,index)=>{
                         return(
-                            <div className="flex justify-between pt-2 items-center border-b-2">
+                            <div className="flex justify-between pt-2 items-center border-b-2 roun ">
                                 <p className="text-gray-500">{(index+1)+". "+e.name}</p>
                                 <i className="icon-[mdi--file-find] text-md "></i>
                             </div>

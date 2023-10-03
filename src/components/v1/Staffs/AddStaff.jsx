@@ -59,11 +59,12 @@ export default function AddStaff() {
     const [emailValue,setEmailValue]=useState();
     const [addressValue,setAddressValue]=useState();
     const [wrongValuePopupShow,setWrongValuePopupShow]=useState(false);
-    const ageRef=useRef("");
-    
     const [docUploadName,setDocUploadName]=useState([]);
+    
+    const ageRef=useRef("");
     const imageRef=useRef("");
     const docUploadRef=useRef("");
+    
     function profilePhotoClicked(){
         imageRef.current.click()
     }
